@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>User Info</title>
+</head>
+<body class="w-50 mx-auto">
+    <h1>User {{user.id}}</h1>
+    <a href="/display_users">Home</a><br>
+    <div class="container border border-2 m-1 p-2">
+        <tr>Full Name: {{user.first_name}} {{user.last_name}}</tr><br>
+        <tr>Email: {{user.email}}</tr><br>
+        <tr>Created On: {{user.created_at}}</tr><br>
+        <tr>Last Updated On: {{user.updated_at}}</tr><br>
+    </div>
+    <a href='/user/edit_page/{{user.id}}'>Edit</a> | <a href='/user/delete/{{user.id}}'>Delete</a>
+    
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
