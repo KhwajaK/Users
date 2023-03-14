@@ -23,7 +23,7 @@
                 <label for="last_name">Last Name:</label>
                 <input name="last_name" type="text" class="form-control" placeholder="Last" value="{{ session['form_data']['last_name'] if 'form_data' in session else '' }}">
                 <label for="Email">Email:</label>
-                <input name="email" type="email" class="form-control" placeholder="Email" value="{{ session['form_data']['email'] if 'form_data' in session else '' }}>
+                <input name="email" type="email" class="form-control" placeholder="Email" value="{{ session['form_data']['email'] if 'form_data' in session else '' }}">
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
