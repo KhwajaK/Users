@@ -1,20 +1,27 @@
+from flask import session, redirect, render_template, request
 from flask_app import app
-from flask import Flask, session, redirect, render_template, request
 from flask_app.models.user import Users
 
 @app.route("/")
 def index():
-    return render_template("create.html")
+    form_data = session.pop('form_data', None)
+    return render_template("create.html", form_data=form_data)
 
 @app.route('/input_user', methods=["POST"])
 def input():
+    if not Users.validate_user(request.form):
+        session['form_data'] = request.form #storing for data in session
+        return redirect("/")
     data = {
         "first_name": request.form["first_name"],
         "last_name" : request.form["last_name"],
         "email": request.form["email"]
     }
     show_user = Users.save(data)
-    return redirect(f"/user/show/{show_user}")
+    session.pop("form_data", None)
+    session['user_id'] = show_user
+    return redirect('/user/show')
+    # return redirect(f"/user/show/{show_user}")
 
 @app.route("/user/show/<int:id>")
 def display_one(id):

@@ -10,13 +10,20 @@
 <body class="w-50 mx-auto">
     <h1>Add a New User</h1> <a href="/display_users">Home</a>
         <form action="/input_user" class="" name="user" method="post">
+            {% with errors = get_flashed_messages() %}
+                {% if errors %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <div class="container row m-3">
                 <label for="first_name">First Name:</label>
-                <input name="first_name" type="text" class="form-control" placeholder="First">
+                <input name="first_name" type="text" class="form-control" placeholder="First" value="{{ session['form_data']['first_name'] if 'form_data' in session else ''}}">
                 <label for="last_name">Last Name:</label>
-                <input name="last_name" type="text" class="form-control" placeholder="Last">
+                <input name="last_name" type="text" class="form-control" placeholder="Last" value="{{ session['form_data']['last_name'] if 'form_data' in session else '' }}">
                 <label for="Email">Email:</label>
-                <input name="email" type="email" class="form-control" placeholder="Email">
+                <input name="email" type="email" class="form-control" placeholder="Email" value="{{ session['form_data']['email'] if 'form_data' in session else '' }}>
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>

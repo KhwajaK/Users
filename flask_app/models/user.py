@@ -1,4 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+import re
+
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 
 class Users:
     DB = "users_schema"
@@ -38,6 +41,7 @@ class Users:
 
     @classmethod
     def save(cls, data):
+            
             query = """
             INSERT into users (first_name, last_name, email, created_at, updated_at)
             VALUES (%(first_name)s, %(last_name)s, %(email)s, NOW(), NOW()); 
@@ -52,3 +56,16 @@ class Users:
         """
         data = {"id": id}
         results = connectToMySQL(cls.DB).query_db(query, data)
+
+    @staticmethod
+    def validate_user(data):
+        is_valid = True
+        if len(data['first_name']) < 2:
+            flash('First name must be at least two characters')
+            is_valid=False
+        if len(data['last_name']) <2:
+            flash('Last name must be at least two characters')
+            is_valid=False            
+        if not EMAIL_REGEX.match(data['email']):
+            flash('Invalid email address')
+        return is_valid
